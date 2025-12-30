@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ml-ops-route
+  namespace: ml-ops
+spec:
+  parentRefs:
+    - name: eg
+      namespace: ml-ops
+  hostnames:
+    - "example.awscloudshop.online"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /predict
+      backendRefs:
+        - name: intent-classifier
+          port: 80
+
